@@ -117,8 +117,23 @@ class CreatePostView(View):
 
         """
         form = PostForm()
+        # Recuperamos el user.id y el owner.id
+        try:
+            userid = User.objects.get(username=request.user).id
+            print('userid =', userid)
 
-        context = {'form': form}
+        except User.DoesNotExist:
+            return HttpResponse('El usuario solicitado no existe', status=404)
+
+        try:
+            blogname = Blog.objects.get(owner=userid).name
+
+            print('blogname =', blogname)
+
+        except Blog.DoesNotExist:
+            return HttpResponse('El blog solicitado no existe', status=404)
+
+        context = {'form': form, 'blog': blogname}
         return render(request, 'posts/form.html', context)
 
     def post(self, request):

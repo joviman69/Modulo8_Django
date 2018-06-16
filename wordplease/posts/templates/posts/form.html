@@ -3,7 +3,7 @@
 {% block title %} Creación de un nuevo post {%  endblock %}
 
 {% block body %}
-<h3>Creación de un nuevo post</h3>
+<h3>Creación de un nuevo post en el blog {{ blog }}</h3>
 
     <form method="post" enctype="multipart/form-data" novalidate>
     {% csrf_token %}
