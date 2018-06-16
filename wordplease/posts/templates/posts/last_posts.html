@@ -4,7 +4,7 @@
     <h3>Listado de los últimos 5 post</h3>
 
 
-    {%  for post in items %}
+    {%  for post in object_list %}
         <a href="/blogs/{{ post.blog.owner.username }}/{{ post.pk }}" style="text-decoration: none;">
         <h3>{{ post.blog }}  >  {{ post.title }}</h3>
         <h6>Written by {{ post.blog.owner.first_name }} {{ post.blog.owner.last_name }} on {{ post.creation_date }}</h6>

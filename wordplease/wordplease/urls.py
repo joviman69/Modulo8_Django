@@ -19,12 +19,12 @@ from django.contrib import admin
 from django.urls import path
 
 from blogs.views import BlogListView, CreateBlogView
-from posts.views import LastPost, PostDetailView, BlogDetailView, CreatePostView
+from posts.views import PostDetailView, BlogDetailView, CreatePostView, HomeView
 from users.views import LoginView, LogoutView, CreateUserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', LastPost.as_view(), name='home'),
+    path('', HomeView.as_view(), name='home'),
     path('blogs/<str:username>/<int:pk>', PostDetailView.as_view(), name='post_detail'),
     path('blogs', BlogListView.as_view()),
     path('blogs/<str:username>', BlogDetailView.as_view()),

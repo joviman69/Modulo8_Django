@@ -5,30 +5,19 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.generic import ListView
 
 from blogs.models import Blog
 from posts.forms import PostForm
 from posts.models import Post
 
-class LastPost(View):
+class HomeView(ListView):
 
-    def get(self, request):
-        """
-        Muestra el listado de los 5 últimos posts
+    queryset = Post.objects.all()
+    template_name = 'posts/last_posts.html'
 
-        :param request: objeto HttpRequest
-        :return: HttpResponse
-        """
-
-        # Recuperamos los 5 últimos post de la DB
-        posts = Post.objects.filter(active=True).order_by('-creation_date')
-
-        # Creamos contexto
-        # messages.info(request, 'Últimos 5 posts')
-        context = {'items': posts[:5]}
-
-        # Devolver la respuesta utilizando una plantilla
-        return render(request, 'posts/last_post.html', context)
+    def get_queryset(self):
+        return super().get_queryset().filter(active=True).order_by('-creation_date')[:5]
 
 class PostDetailView(View):
 
