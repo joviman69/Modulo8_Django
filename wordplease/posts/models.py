@@ -9,8 +9,8 @@ class Post(models.Model):
 
 
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    themes = models.ManyToManyField(Theme)
     title = models.CharField(max_length=100)
+    themes = models.ManyToManyField(Theme)
     creation_date = models.DateTimeField(auto_now_add=True)
     intro = models.TextField(null=True)
     text = models.TextField(null=True)

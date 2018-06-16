@@ -112,7 +112,14 @@ def create_post(request):
     :return: HttpResponse con respuesta
     """
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        post = Post()
+        userid = User.objects.get(username=request.user).id
+        try:
+            post.blog = Blog.objects.get(owner=userid)
+        except Blog.DoesNotExist:
+            return HttpResponse('Este usuario no tiene creado ningún blog. Cree un blog primero desde el Django Admin.<a href="/" %}>Ir al inicio</a>', status=404)
+
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             new_post = form.save()
             form = PostForm()
