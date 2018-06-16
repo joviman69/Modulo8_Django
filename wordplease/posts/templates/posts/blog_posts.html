@@ -1,20 +1,25 @@
 {%  extends "base.html" %}
 
-{% block title %}
-Posts del blog {{ blog.name }}
+{% block title %}Posts del blog {{ blog }}
 {% endblock %}
 
 {% block body %}
-
+<h3>Listado de los posts del blog {{ blog }}</h3>
 
     {%  for post in items %}
         <a href="/blogs/{{ post.blog.owner.username }}/{{ post.pk }}" style="text-decoration: none;">
-        <h3>{{ post.blog }} > {{ post.title }}</h3>
+        <h3>{{ post.title }}</h3>
         <h6>Written by {{ post.blog.owner.username }} on {{ post.creation_date }}</h6>
         <div>
             <img src="{{ post.image.url }}" alt="{{ post.name }}" title="{{ post.name }}" width="200px">
             <p>{{ post.intro }}</p>
-            <h5>Theme: {{ post.themes }}</h5>
+            <h5>Theme:
+            {%  for theme in post.themes.all %}
+
+               < {{ theme }} >
+
+            {%  endfor %}
+            </h5>
 
         </div>
 

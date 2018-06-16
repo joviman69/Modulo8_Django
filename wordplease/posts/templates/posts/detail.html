@@ -3,5 +3,13 @@
     <h3>{{ post.blog }} >>> {{ post.title }}</h3>
     <img src="{{ post.image.url }}" alt="{{ post.image }}" title="{{ post.title }}" width="400px">
     <p>{{ post.text }}</p>
-    <h6>Written by {{ post.blog.owner.first_name }} {{ post.blog.owner.last_name }} on {{ post.creation_date }}</h6>
+     <h5>Theme:
+            {%  for theme in post.themes.all %}
+
+               < {{ theme }} >
+
+            {%  endfor %}
+            </h5>
+
+    <h6>Written by {{ post.blog.owner.username }} on {{ post.creation_date }}</h6>
 {% endblock %}

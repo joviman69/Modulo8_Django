@@ -18,19 +18,20 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from blogs.views import blog_list
-from posts.views import post_detail, last_posts, blog_detail, create_post
-from users.views import login, logout, create_user
+from blogs.views import BlogListView, CreateBlogView
+from posts.views import LastPost, PostDetailView, BlogDetailView, CreatePostView
+from users.views import LoginView, LogoutView, CreateUserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', last_posts, name='home'),
-    path('blogs/<str:username>/<int:pk>', post_detail, name='post_detail'),
-    path('blogs', blog_list),
-    path('blogs/<str:username>', blog_detail),
-    path('login', login, name='login'),
-    path('logout', logout, name='logout'),
-    path('new-post', create_post, name='new_post'),
-    path('signup', create_user, name='new_user'),
+    path('', LastPost.as_view(), name='home'),
+    path('blogs/<str:username>/<int:pk>', PostDetailView.as_view(), name='post_detail'),
+    path('blogs', BlogListView.as_view()),
+    path('blogs/<str:username>', BlogDetailView.as_view()),
+    path('login', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
+    path('new-post', CreatePostView.as_view(), name='new_post'),
+    path('new-blog', CreateBlogView.as_view(), name='new_blog'),
+    path('signup', CreateUserView.as_view(), name='new_user'),
 
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,9 +7,9 @@ Listado de blogs
 {% block body %}
 
     {%  for blog in items %}
-        <a href="/blogs/{{ blog.owner.username }}">
+        <a href="/blogs/{{ blog.owner.username }}" style="text-decoration: none;">
         <h3>{{ blog.name }}</h3>
-        <h3>{{ blog.description }}</h3>
+        <h4>{{ blog.description }}</h4>
         <h6>Created by {{ blog.owner.username }} on {{ blog.creation_date }}</h6>
         <div>
             <img src="{{ blog.image.url }}" alt="{{ blog.name }}" title="{{ blog.name }}" width="200px">
