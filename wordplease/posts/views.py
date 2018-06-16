@@ -13,11 +13,15 @@ from posts.models import Post
 
 class HomeView(ListView):
 
-    queryset = Post.objects.all()
+    model = Post
     template_name = 'posts/last_posts.html'
 
     def get_queryset(self):
         return super().get_queryset().filter(active=True).order_by('-creation_date')[:5]
+
+class MyPostsView(ListView):
+    model = Post
+    template_name = 'posts/my_posts.html'
 
 class PostDetailView(View):
 
@@ -36,7 +40,7 @@ class PostDetailView(View):
             # un = User.objects.get(username=username).username
 
         except User.DoesNotExist:
-            return HttpResponse('Requested username does not exist', status=404)
+            return HttpResponse('El usuario solicitado no existe', status=404)
 
         # Obtenemos el blog del owner.id correspondiente al user.id
 
@@ -44,7 +48,7 @@ class PostDetailView(View):
             blogid = Blog.objects.get(owner=userid).id
 
         except Blog.DoesNotExist:
-            return HttpResponse('This username has any blog created', status=404)
+            return HttpResponse('Este usuario no tiene ningún blog creado', status=404)
 
         # Recuperamos el post de la DB correspondiente a pk
 
@@ -52,7 +56,7 @@ class PostDetailView(View):
             post = Post.objects.filter(blog=blogid).get(pk=pk)
 
         except Post.DoesNotExist:
-            return HttpResponse('Requested post does not exist for username ' + username + ' ' + '<a href="/">Regresar al inicio</a>' , status=404)
+            return HttpResponse('El post solicitado no existe para la cuenta de usuario ' + username + ' ' + '<a href="/">Regresar al inicio</a>' , status=404)
 
         # Creamos contexto
         context = {'post': post}
@@ -74,14 +78,14 @@ class BlogDetailView(View):
             userid = User.objects.get(username=username).id
 
         except User.DoesNotExist:
-            return HttpResponse('Requested username does not exist', status=404)
+            return HttpResponse('El usuario solicitado no existe', status=404)
 
         try:
             blogid = Blog.objects.get(owner=userid).id
             blogname = Blog.objects.get(owner=userid).name
 
         except Blog.DoesNotExist:
-            return HttpResponse('Requested blog does not exist', status=404)
+            return HttpResponse('El blog solicitado no existe', status=404)
 
 
         # Recuperamos el id del blog correspondiente al username y sus posts de la DB
@@ -89,7 +93,7 @@ class BlogDetailView(View):
             post = Post.objects.select_related().filter(blog_id=blogid)
 
         except Post.DoesNotExist:
-            return HttpResponse('Requested post does not exist', status=404)
+            return HttpResponse('El post solicitado no existe', status=404)
 
         # Creamos contexto
         context = {'items': post, 'blog': blogname}

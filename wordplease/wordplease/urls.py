@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path
 
 from blogs.views import BlogListView, CreateBlogView
-from posts.views import PostDetailView, BlogDetailView, CreatePostView, HomeView
+from posts.views import PostDetailView, BlogDetailView, CreatePostView, HomeView, MyPostsView
 from users.views import LoginView, LogoutView, CreateUserView
 
 urlpatterns = [
@@ -33,5 +33,7 @@ urlpatterns = [
     path('new-post', CreatePostView.as_view(), name='new_post'),
     path('new-blog', CreateBlogView.as_view(), name='new_blog'),
     path('signup', CreateUserView.as_view(), name='new_user'),
+    path('my-posts', MyPostsView.as_view(), name='my_views'),
+
 
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

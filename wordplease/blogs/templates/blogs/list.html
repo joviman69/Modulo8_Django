@@ -10,7 +10,7 @@ Listado de blogs
         <a href="/blogs/{{ blog.owner.username }}" style="text-decoration: none;">
         <h3>{{ blog.name }}</h3>
         <h4>{{ blog.description }}</h4>
-        <h6>Created by {{ blog.owner.username }} on {{ blog.creation_date }}</h6>
+        <h6>Created by {{ blog.owner.first_name }} {{ blog.owner.last_name }} on {{ blog.creation_date }}</h6>
         <div>
             <img src="{{ blog.image.url }}" alt="{{ blog.name }}" title="{{ blog.name }}" width="200px">
 

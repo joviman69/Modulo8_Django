@@ -5,6 +5,7 @@ from django.views import View
 
 from users.forms import LoginForm, NewUserForm
 
+
 class LoginView(View):
 
     def get(self, request):
@@ -38,7 +39,7 @@ class LoginView(View):
             user = authenticate(username=username, password=password)
 
             if user is None:
-                messages.error(request, 'Wrong user or password')
+                messages.error(request, 'Usuario o contraseña incorrectos')
             else:
                 # login de usuario
                 dlogin(request, user)
@@ -48,7 +49,7 @@ class LoginView(View):
         form = LoginForm()
 
         context = {'form': form}
-        messages.info(request, 'Enter username and password for logging in your account')
+        messages.info(request, 'Introduzca su usuario y contraseña para acceder a su cuenta')
         return render(request, 'users/login.html', context)
 
 class LogoutView(View):
@@ -86,7 +87,9 @@ class CreateUserView(View):
         form = NewUserForm(request.POST)
         if form.is_valid():
             new_user = form.save()
+
             form = NewUserForm()
+        messages.success(request, 'Nuevo usuario creado correctamente')
 
         context = {'form': form}
         return render(request, 'users/new_user.html', context)
