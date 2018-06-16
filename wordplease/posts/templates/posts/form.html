@@ -1,0 +1,17 @@
+{%  extends "base.html" %}
+
+{% block title %} Ultimos posts publicados {%  endblock %}
+
+{% block body %}
+
+    <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Crear post</button>
+    <button type="reset">Borrar formulario</button>
+    </form>
+
+    {% include 'includes/messages.html' %}
+
+{%  endblock %}
+

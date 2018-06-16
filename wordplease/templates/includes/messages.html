@@ -1,0 +1,11 @@
+{% if messages %}
+    {%  for message in messages %}
+        {% if message.level == 25 %}
+            <p style="color: limegreen">{{  message }}</p>
+        {%  elif message.level == 40 %}
+            <p style="color: red">{{  message }}</p>
+        {%  else %}
+            <h3>{{  message }}</h3>
+        {%  endif %}
+    {% endfor %}
+{% endif %}

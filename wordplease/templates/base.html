@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} WordPlease {% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        |
+        {% if user.is_authenticated %}
+            <span style="color:dodgerblue">Welcome {{ user.first_name }} | </span>
+            <a href="{% url 'logout' %}">Logout</a>
+        {%  else %}
+        <a href="{% url 'login' %}">Login</a>
+            |
+         <a href="{% url 'new_user' %}">Register</a>
+        {%  endif %}
+    </nav>
+    <hr>
+    <h1>WordPlease</h1>
+    <h4>La plataforma de microblogging preferida por los incautos desde 2018</h4>
+
+    {% include 'includes/messages.html' %}
+
+    <hr>
+    {% block body %}{% endblock %}
+</body>
+</html>
