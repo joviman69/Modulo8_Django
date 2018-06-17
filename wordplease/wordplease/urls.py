@@ -20,19 +20,24 @@ from django.urls import path
 
 from blogs.views import BlogListView, CreateBlogView
 from posts.views import PostDetailView, BlogDetailView, CreatePostView, HomeView
+from users.api import UsersAPI
 from users.views import LoginView, LogoutView, CreateUserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
     path('blogs/<str:username>/<int:pk>', PostDetailView.as_view(), name='post_detail'),
-    path('blogs', BlogListView.as_view()),
-    path('blogs/<str:username>', BlogDetailView.as_view()),
+    path('blogs/', BlogListView.as_view()),
+    path('blogs/<str:username>/', BlogDetailView.as_view()),
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('new-post', CreatePostView.as_view(), name='new_post'),
     path('new-blog', CreateBlogView.as_view(), name='new_blog'),
     path('signup', CreateUserView.as_view(), name='new_user'),
+
+    # API URLs
+
+    path('api/v1/users/', UsersAPI.as_view(), name='api- user'),
 
 
 

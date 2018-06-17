@@ -116,15 +116,12 @@ class CreatePostView(View):
         # Recuperamos el user.id y el owner.id
         try:
             userid = User.objects.get(username=request.user).id
-            print('userid =', userid)
 
         except User.DoesNotExist:
             return HttpResponse('El usuario solicitado no existe', status=404)
 
         try:
             blogname = Blog.objects.get(owner=userid).name
-
-            print('blogname =', blogname)
 
         except Blog.DoesNotExist:
             return HttpResponse('Este usuario no tiene ningún blog creado', status=404)
