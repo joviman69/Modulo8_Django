@@ -16,12 +16,19 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
+from blogs.api import BlogListAPI
 from blogs.views import BlogListView, CreateBlogView
+from posts.api import PostViewSet
 from posts.views import PostDetailView, BlogDetailView, CreatePostView, HomeView
-from users.api import UsersAPI
+from users.api import UsersAPI, UserDetailAPI
 from users.views import LoginView, LogoutView, CreateUserView
+
+
+router = DefaultRouter()
+router.register('posts', PostViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,9 +43,9 @@ urlpatterns = [
     path('signup', CreateUserView.as_view(), name='new_user'),
 
     # API URLs
+    path('api/v1/', include(router.urls)),
+    path('api/v1/users/', UsersAPI.as_view(), name='api-user'),
+    path('api/v1/users/<int:pk>/', UserDetailAPI.as_view(), name='api-user-detail'),
+    path('api/v1/blogs/', BlogListAPI.as_view(), name='api-blogs'),
 
-    path('api/v1/users/', UsersAPI.as_view(), name='api- user'),
-
-
-
-    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
