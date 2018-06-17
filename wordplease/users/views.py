@@ -18,7 +18,7 @@ class LoginView(View):
         form = LoginForm()
 
         context = {'form': form}
-        messages.info(request, 'Enter username and password for logging in your account')
+        messages.info(request, 'Introduzca usuario y contraseña para acceder a su cuenta')
         return render(request, 'users/login.html', context)
 
     def post(self, request):
