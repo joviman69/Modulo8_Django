@@ -19,10 +19,6 @@ class HomeView(ListView):
     def get_queryset(self):
         return super().get_queryset().filter(active=True).order_by('-creation_date')[:5]
 
-class MyPostsView(ListView):
-    model = Post
-    template_name = 'posts/my_posts.html'
-
 class PostDetailView(View):
 
     def get(self, request, username, pk):
@@ -131,7 +127,7 @@ class CreatePostView(View):
             print('blogname =', blogname)
 
         except Blog.DoesNotExist:
-            return HttpResponse('El blog solicitado no existe', status=404)
+            return HttpResponse('Este usuario no tiene ningún blog creado', status=404)
 
         context = {'form': form, 'blog': blogname}
         return render(request, 'posts/form.html', context)

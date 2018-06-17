@@ -3,7 +3,7 @@
     <h3>{{ post.blog }} >>> {{ post.title }}</h3>
     <img src="{{ post.image.url }}" alt="{{ post.image }}" title="{{ post.title }}" width="400px">
     <p>{{ post.text }}</p>
-     <h5>Theme:
+     <h5>Temática:
             {%  for theme in post.themes.all %}
 
                < {{ theme }} >
