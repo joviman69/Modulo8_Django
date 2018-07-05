@@ -9,7 +9,7 @@
     {%  for post in items %}
         <a href="/blogs/{{ post.blog.owner.username }}/{{ post.pk }}" style="text-decoration: none;">
         <h3>{{ post.title }}</h3>
-        <h6>Written by {{ post.blog.owner.first_name }} {{ post.blog.owner.last_name }} on {{ post.creation_date }}</h6>
+        <h6>Publicado por {{ post.blog.owner.first_name }} {{ post.blog.owner.last_name }} on {{ post.publication_date }}</h6>
         <div>
             <img src="{{ post.image.url }}" alt="{{ post.name }}" title="{{ post.name }}" width="200px">
             <p>{{ post.intro }}</p>

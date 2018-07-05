@@ -89,7 +89,7 @@ class CreateUserView(View):
             new_user = form.save()
 
             form = NewUserForm()
-        messages.success(request, 'Nuevo usuario creado correctamente')
+            messages.success(request, 'Nuevo usuario creado correctamente')
 
         context = {'form': form}
         return render(request, 'users/new_user.html', context)
